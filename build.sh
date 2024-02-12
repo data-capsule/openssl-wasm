@@ -6,15 +6,15 @@ cd openssl || exit 1
 
 env \
     CROSS_COMPILE="" \
-    AR="zig ar" \
-    RANLIB="zig ranlib" \
-    CC="zig cc --target=wasm32-wasi" \
-    CFLAGS="-Ofast -Werror -Qunused-arguments -Wno-shift-count-overflow" \
-    CPPFLAGS="$CPPFLAGS -D_WASI_EMULATED_GETPID -Dgetuid=getpagesize -Dgeteuid=getpagesize -Dgetgid=getpagesize -Dgetegid=getpagesize" \
+    AR="emar" \
+    RANLIB="emranlib" \
+    CC="emcc --target=wasm32-unknown-emscripten" \
+    CFLAGS="-O3 -Werror -Qunused-arguments -Wno-shift-count-overflow" \
+    CPPFLAGS="$CPPFLAGS -D_WASI_EMULATED_GETPID" \
     CXXFLAGS="-Werror -Qunused-arguments -Wno-shift-count-overflow" \
     LDFLAGS="-s -lwasi-emulated-getpid" \
     ./Configure \
-    --banner="wasm32-wasi port" \
+    --banner="wasm32-unknown-emscripten port" \
     no-asm \
     no-async \
     no-egd \
@@ -29,7 +29,7 @@ env \
     no-threads \
     no-ui-console \
     no-weak-ssl-ciphers \
-    wasm32-wasi || exit 1
+    wasm32-unknown-emscripten || exit 1
 
 make "-j${NPROCESSORS}"
 

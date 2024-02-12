@@ -6,14 +6,14 @@ index 46094f59..c3db2695 100644
          multilib         => "64",
      },
  
-+    "wasm32-wasi" => {
++    "wasm32-unknown-emscripten" => {
 +        inherit_from     => [ "BASE_unix" ],
-+        CC               => "zig cc",
-+        CXX              => "zig c++",
-+        cflags           => add("--target=wasm32-wasi"),
-+        cxxflags         => add("--target=wasm32-wasi"),
++        CC               => "emcc",
++        CXX              => "emc++",
++        cflags           => add("--target=wasm32-unknown-emscripten"),
++        cxxflags         => add("--target=wasm32-unknown-emscripten"),
 +        lib_cppflags     => add("-DL_ENDIAN"),
-+        bn_ops           => "SIXTY_FOUR_BITS",
++        bn_ops           => "THIRTY_TWO_BITS",
 +    },
 +
  ##### VxWorks for various targets
